@@ -32,3 +32,4 @@ def test_all_items():
     item2 = Item("Ноутбук", 20000, 5)
 
     assert Item.all == [item1, item2]
+    
