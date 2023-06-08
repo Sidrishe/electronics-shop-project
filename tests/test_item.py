@@ -1,7 +1,9 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
 from src.item import Item
 import pytest
+import os
 
+op_file_name = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'src', "items.csv")
 
 @pytest.fixture(autouse=True)
 def cleanup_item():
@@ -32,4 +34,25 @@ def test_all_items():
     item2 = Item("Ноутбук", 20000, 5)
 
     assert Item.all == [item1, item2]
-    
+
+
+def test_item_name_setter():
+    item = Item('test', 10.0, 5)
+    item.name = 'newname'
+    assert item.name == 'newname'
+
+    with pytest.raises(ValueError):
+        item.name = 'nameislongerthanten'
+
+def test_instantiate_from_csv():
+    Item.instantiate_from_csv()
+
+    item1 = Item.all[0]
+    assert item1.name == "Смартфон"
+    assert item1.price == 100
+    assert item1.quantity == 1
+
+    item2 = Item.all[1]
+    assert item2.name == "Ноутбук"
+    assert item2.price == 1000
+    assert item2.quantity == 3
