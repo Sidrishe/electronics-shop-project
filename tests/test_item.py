@@ -5,6 +5,7 @@ import os
 
 op_file_name = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'src', "items.csv")
 
+
 @pytest.fixture(autouse=True)
 def cleanup_item():
     Item.all = []
@@ -44,6 +45,7 @@ def test_item_name_setter():
     with pytest.raises(ValueError):
         item.name = 'nameislongerthanten'
 
+
 def test_instantiate_from_csv():
     Item.instantiate_from_csv()
 
@@ -56,3 +58,13 @@ def test_instantiate_from_csv():
     assert item2.name == "Ноутбук"
     assert item2.price == 1000
     assert item2.quantity == 3
+
+
+def test_repr():
+    item1 = Item("Смартфон", 10000, 20)
+    assert repr(item1) == "Item('Смартфон', 10000, 20)"
+
+
+def test_str():
+    item1 = Item("Смартфон", 10000, 20)
+    assert str(item1) == 'Смартфон'
