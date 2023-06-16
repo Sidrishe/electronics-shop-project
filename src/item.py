@@ -28,6 +28,12 @@ class Item:
     def __str__(self):
         return self.__name
 
+    def __add__(self, other):
+        if issubclass(type(other), Item):
+            return self.quantity + other.quantity
+        else:
+            raise TypeError("Невозможно сложить с экземплярами не классов Phone и Item")
+
     @property
     def name(self) -> str:
         """Вернет название товара"""
